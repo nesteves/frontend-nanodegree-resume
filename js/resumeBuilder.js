@@ -4,7 +4,7 @@ var bio = {
   "contacts": {
     "email": "nuno@email.com",
     "twitter": "@nunoesteves",
-    "github": "nunoesteves",
+    "github": "nesteves",
   },
   "pictureURL": "images/me.jpg",
   "welcomeMessage": "Welcome to my javascript generated resumé.",
@@ -52,7 +52,7 @@ var work = {
       "employer": "INESC Porto",
       "title": "Junior Researcher",
       "location": "Porto, Portugal",
-      "dates": "2012-2013",
+      "dates": "2012 - 2013",
       "description": "Build an application leveraging Excel, VBA, R and SQL Server that " +
                      "received a forecast of weekly sales, deagregatted it by store-sku " +
                      "and determined replenishment quantities down to the item size.",
@@ -68,15 +68,45 @@ var work = {
                      "targeting the supply chain.",
     },
   ],
+  "display": function() {
+    for (var i = 0; i < this.jobs.length; i++) {
+      $("#workExperience").append(HTMLworkStart);
+   
+      formattedWork = HTMLworkEmployer.replace("%data%", this.jobs[i].employer) +
+        HTMLworkTitle.replace("%data%", this.jobs[i].title) +
+        HTMLworkDates.replace("%data%", this.jobs[i].dates) +
+        HTMLworkLocation.replace("%data%", this.jobs[i].location) +
+        HTMLworkDescription.replace("%data%", this.jobs[i].description);
+
+      $(".work-entry:last").append(formattedWork);
+    }
+  }
 };
 
 var projects = [
-    {
-      "title": "Personal blog",
-      "description": "A small blog built on Jekyll and hosted in github pages.",
-      "dates": 2017,
-    },
+  {
+    "title": "Personal blog",
+    "description": "A small blog built on Jekyll and hosted in github pages.",
+    "dates": 2017,
+  },
+  {
+    "title": "A New Project",
+    "description": "An awesome project that will blow your mind right off its " +
+                   "handles!",
+    "dates": 2017,
+  }
 ];
+projects.display = function() {
+  for (var i = 0; i < this.length; i++) {
+    $("#projects").append(HTMLprojectStart);
+    
+    formattedProject = HTMLprojectTitle.replace("%data%", this[i].title) +
+      HTMLprojectDates.replace("%data%", this[i].dates) +
+      HTMLprojectDescription.replace("%data%", this[i].description);
+    
+    $(".project-entry:last").append(formattedProject);
+  }
+};
 
 var formattedName = HTMLheaderName.replace("%data%", bio.name);
 var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
@@ -102,14 +132,7 @@ if (bio.skills.length > 0) {
   }
 }
 
-for (var i = 0; i < work.jobs.length; i++) {
-  $("#workExperience").append(HTMLworkStart);
-  
-  formattedWork = HTMLworkEmployer.replace("%data%", work.jobs[i].employer) +
-    HTMLworkTitle.replace("%data%", work.jobs[i].title) +
-    HTMLworkDates.replace("%data%", work.jobs[i].dates) +
-    HTMLworkLocation.replace("%data%", work.jobs[i].location) +
-    HTMLworkDescription.replace("%data%", work.jobs[i].description);
+work.display();
+projects.display();
 
-  $(".work-entry:last").append(formattedWork);
-}
+$("#main").append(internationalizeButton);

@@ -58,6 +58,15 @@ var HTMLonlineURL = '<br><a href="#">%data%</a>';
 var internationalizeButton = '<button>Internationalize</button>';
 var googleMap = '<div id="map"></div>';
 
+function inName(name) {
+  var splitName = name.trim().split(" ");
+  var firstName = splitName[0].charAt(0).toUpperCase() +
+    splitName[0].slice(1).toLowerCase();
+  var lastName = splitName[1].toUpperCase();
+
+  return firstName + " " + lastName;
+}
+
 
 /*
 The Internationalize Names challenge found in the lesson Flow Control from JavaScript Basics requires you to create a function that will need this helper code to run. Don't delete! It hooks up your code to the button you'll be appending.
@@ -86,7 +95,7 @@ function logClicks(x,y) {
 }
 
 $(document).click(function(loc) {
-  // your code goes here!
+  logClicks(loc.pageX, loc.pageY);
 });
 
 
